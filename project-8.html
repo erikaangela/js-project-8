@@ -26,9 +26,28 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 </head>
 
 <body>
-  
+  <div class="container-fluid m-3">
+    <div class="row">
+      <h3>ToDo</h3>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form onsubmit="event.preventDefault(); addToList()">
+          <input type="text" id="item" name="item"><br>
+          <input type="submit" value="Add new item">
+        </form>
+      </div>
+      <div class="col list-items">
+      </div>
+    </div>
+  </div>
 
-  <script></script>
+  <script>
+    let list = [];
+    function addToList() {
+      
+    }
+  </script>
 </body>
 
 </html>
