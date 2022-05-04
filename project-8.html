@@ -37,23 +37,28 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
           <input type="submit" value="Add new item">
         </form>
       </div>
-      <div class="col list-items">
+      <div class="col">
+        <p id="list-items"></p>
       </div>
     </div>
   </div>
 
   <script>
     let list = [];
-    function makeObject(text, id) {
-      this.text = text;
-      this.id = id;
-    };
-
     function addToList() {
-      let item = document.getElementById("item").value;
+      let text = document.getElementById("item").value;
+      let id = Date.now();
 
-      let itemObj = new addToList(item, 45);
-      itemObj.push(list);
+      list.push({text: text, id: id})
+      let listOfItems = document.getElementById("list-items")
+      listOfItems.innerText += `${text} \n`;
+
+      JSON.stringify(list);
+      localStorage.setItem(text, );
+    }
+
+    function removeFromList() {
+
     }
 
   </script>
