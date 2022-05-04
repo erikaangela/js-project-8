@@ -44,9 +44,18 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 
   <script>
     let list = [];
+    function makeObject(text, id) {
+      this.text = text;
+      this.id = id;
+    };
+
     function addToList() {
-      
+      let item = document.getElementById("item").value;
+
+      let itemObj = new addToList(item, 45);
+      itemObj.push(list);
     }
+
   </script>
 </body>
 
