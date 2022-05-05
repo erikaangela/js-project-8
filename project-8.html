@@ -33,8 +33,8 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     <div class="row">
       <div class="col">
         <input type="text" id="item"><br>
-        <button onclick="addItem()" class="buttonClass">Add item</button>
-        <button onclick="removeItem()" class="buttonClass">Remove item</button>
+        <button onclick="addItem()">Add item</button>
+        <button onclick="removeItem()" id="removeBtn">Remove item</button>
       </div>
       <div class="col">
         <h6>Items</h6>
@@ -60,24 +60,25 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
       localStorage.setItem("list", JSON.stringify(list));
 
       // localStorage.clear();
-      // console.log(localStorage);
+      console.log(localStorage);
     }
 
     function removeItem() {
       let text = document.getElementById("item").value;
       let listOfItems = document.getElementById("list-items");
-      
+
       let removedItem = document.getElementById(text);
       listOfItems.removeChild(removedItem);
 
-      let getList = localStorage.getItem("list");
-      let revivedList = JSON.parse(getList, function(key, value) {
-        if (key ===) {
-
+      let list = localStorage.getItem("list");
+      JSON.parse(list);
+      for (i = 0; i < list.length; i++) {
+        if (i.text === text) {
+          list.splice(i, 1);
         }
-      });
-
-
+      }
+      localStorage.setItem("list", JSON.stringify(list));
+      console.log(localStorage);
     }
 
   </script>
