@@ -72,13 +72,6 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 
       let list = localStorage.getItem("list");
       JSON.parse(list);
-      for (i = 0; i < list.length; i++) {
-        if (i.text === text) {
-          list.splice(i, 1);
-        }
-      }
-      localStorage.setItem("list", JSON.stringify(list));
-      console.log(localStorage);
     }
 
   </script>
