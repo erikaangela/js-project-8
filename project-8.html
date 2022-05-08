@@ -44,40 +44,50 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
   </div>
 
   <script>
-    let list = [];
+    // localStorage.clear();
+
+    let list = JSON.parse(localStorage.getItem('list')) || [];
+
+    const renderList = (list) => {
+      let listOfItems = document.getElementById("list-items");
+
+      list.map(({text, id}) => {
+        let li = document.createElement("li");
+        li.setAttribute("id", text);
+        li.appendChild(document.createTextNode(text));
+        listOfItems.appendChild(li);
+      })
+    }
 
     function addItem() {
-      let text = document.getElementById("item").value;
-      let id = Date.now();
+      let inputValue = document.getElementById("item").value;
+      let inputId = Date.now();
 
-      let listOfItems = document.getElementById("list-items");
-      let li = document.createElement("li");
-      li.setAttribute("id", text);
-      li.appendChild(document.createTextNode(text));
-      listOfItems.appendChild(li);
+      if (inputValue === "") {
+        alert("Enter a text item to add to the list.");
+        return false;
+      } else {
+        list.push({text: inputValue, id: inputId});
+        localStorage.setItem("list", JSON.stringify(list));
+        }
 
-      list.push({text: text, id: id})
-      localStorage.setItem("list", JSON.stringify(list));
-
-      // localStorage.clear();
+      renderList(list);
       console.log(localStorage);
     }
 
     function removeItem() {
-      let text = document.getElementById("item").value;
+      let inputValue = document.getElementById("item").value;
       let listOfItems = document.getElementById("list-items");
 
-      let removedItem = document.getElementById(text);
-      listOfItems.removeChild(removedItem);
+      let itemToRemove = document.getElementById(inputValue);
+      listOfItems.removeChild(itemToRemove);
 
       for (i = 0; i < list.length; i++) {
-        if (i.text === text) {
-          let list = JSON.parse(localStorage.getItem("list"));
+        if ({i}.text === itemToRemove) {
           list.splice(i, 1);
-          localStorage.setItem("list", JSON.stringify(list));
+          console.log(list);
         }
       }
-      console.log(localStorage);
     }
 
   </script>
