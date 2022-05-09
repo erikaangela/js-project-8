@@ -34,11 +34,11 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
       <div class="col">
         <input type="text" id="item"><br>
         <button onclick="addItem()">Add item</button>
-        <button onclick="removeItem()">Remove item</button>
       </div>
       <div class="col">
         <h6>Items</h6>
         <ul id="list-items"></ul>
+        <button onclick="removeItem()">Remove item</button>
       </div>
     </div>
   </div>
@@ -47,15 +47,19 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     // localStorage.clear();
 
     let list = JSON.parse(localStorage.getItem('list')) || [];
+    let listOfItems = document.getElementById("list-items");
 
     const renderList = (list) => {
-      let listOfItems = document.getElementById("list-items");
-
       list.map(({text, id}) => {
+        let listOfItems = document.getElementById("list-items");
         let li = document.createElement("li");
+        let deleteBox = document.createElement("input");
+        deleteBox.type = "checkbox";
+        deleteBox.className = "delete-box form-check-input";
         li.setAttribute("id", id);
         li.className = "item";
         li.appendChild(document.createTextNode(text));
+        li.appendChild(deleteBox);
         listOfItems.appendChild(li);
       })
     }
@@ -73,20 +77,25 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         list.push({text: inputValue, id: inputId});
         localStorage.setItem("list", JSON.stringify(list));
         }
+      // for (let i = 0; i < list.length; i++) {
+      //   if (Object.values([i]).includes(inputId)) {
+      //     renderList(list[i]);
+      //   }
+      // }
     }
 
     function removeItem() {
-      let inputValue = document.getElementById("item").value;
-      let items = document.getElementsByClassName("items");
-      for (i = 0; i < items.length; i++) {
-        if (items.item(i).text === inputValue) {
-          let list = JSON.parse(localStorage.getItem('list')) || [];
-          listOfItems.removeChild(items.item(i));
-          list.splice(i, 1);
-          console.log(list);
+      let checkboxes = document.getElementsByClassName("delete-box");
+      let items = document.getElementsByClassName("item");
+
+      for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          checkboxes[i].parentNode.removeChild(checkboxes[i]);
+          items[i].parentNode.removeChild(items[i]);
+          list.splice([i], 1);
+          localStorage.setItem("list", JSON.stringify(list));
         }
       }
-
     }
 
   </script>
