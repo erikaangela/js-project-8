@@ -49,11 +49,13 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     let list = JSON.parse(localStorage.getItem('list')) || [];
     let listOfItems = document.getElementById("list-items");
 
+
     const renderList = (list) => {
       list.map(({text, id}) => {
         let listOfItems = document.getElementById("list-items");
         let li = document.createElement("li");
         let deleteBox = document.createElement("input");
+
         deleteBox.type = "checkbox";
         deleteBox.className = "delete-box form-check-input";
         li.setAttribute("id", id);
@@ -66,6 +68,21 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 
     renderList(list);
 
+
+    function printToList(text) {
+      let listOfItems = document.getElementById("list-items");
+      let li = document.createElement("li");
+      let deleteBox = document.createElement("input");
+
+      deleteBox.type = "checkbox";
+      deleteBox.className = "delete-box form-check-input";
+      li.className = "item";
+      li.appendChild(document.createTextNode(text));
+      li.appendChild(deleteBox);
+      listOfItems.appendChild(li);
+    }
+
+
     function addItem() {
       let inputValue = document.getElementById("item").value;
       let inputId = Date.now();
@@ -77,12 +94,10 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         list.push({text: inputValue, id: inputId});
         localStorage.setItem("list", JSON.stringify(list));
         }
-      // for (let i = 0; i < list.length; i++) {
-      //   if (Object.values([i]).includes(inputId)) {
-      //     renderList(list[i]);
-      //   }
-      // }
+
+      printToList(inputValue);
     }
+
 
     function removeItem() {
       let checkboxes = document.getElementsByClassName("delete-box");
