@@ -31,11 +31,11 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
       <h3 class="display-4">ToDo</h3>
     </div>
     <div class="row">
-      <div class="col-2">
+      <div class="col-sm-2">
         <input type="text" id="item" class="mb-1">
         <button class="btn-primary btn-sm" onclick="addItem()">Add item</button>
       </div>
-      <div class="col-2">
+      <div class="col-sm-2">
         <h5 class="text-muted">Items</h5>
         <ul id="list-items"></ul>
         <button class="btn-danger btn-sm" onclick="removeItem()">Remove item</button>
@@ -49,8 +49,7 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     let list = JSON.parse(localStorage.getItem('list')) || [];
     let listOfItems = document.getElementById("list-items");
 
-
-    function renderList(list, text) {
+    const renderList = (list) => {
       list.map(({text, id}) => {
         let listOfItems = document.getElementById("list-items");
         let li = document.createElement("li");
@@ -63,30 +62,24 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         li.appendChild(document.createTextNode(text));
         li.appendChild(deleteBox);
         listOfItems.appendChild(li);
-
-        function printToList(text) {
-          li.appendChild(document.createTextNode(text));
-          li.appendChild(deleteBox);
-          listOfItems.appendChild(li);        }
       })
-      printToList(text);
     }
 
     renderList(list);
 
-    // function printToList(text) {
-    //   let listOfItems = document.getElementById("list-items");
-    //   let li = document.createElement("li");
-    //   let deleteBox = document.createElement("input");
-    //
-    //   deleteBox.type = "checkbox";
-    //   deleteBox.className = "delete-box form-check-input";
-    //   li.setAttribute("id", id);
-    //   li.className = "item";
-    //   li.appendChild(document.createTextNode(text));
-    //   li.appendChild(deleteBox);
-    //   listOfItems.appendChild(li);
-    // }
+    function printToList(text) {
+      let listOfItems = document.getElementById("list-items");
+      let li = document.createElement("li");
+      let deleteBox = document.createElement("input");
+
+      deleteBox.type = "checkbox";
+      deleteBox.className = "delete-box form-check-input";
+      // li.setAttribute("id", id);
+      li.className = "item";
+      li.appendChild(document.createTextNode(text));
+      li.appendChild(deleteBox);
+      listOfItems.appendChild(li);
+    }
 
     function addItem() {
       let inputValue = document.getElementById("item").value;
@@ -100,7 +93,8 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         localStorage.setItem("list", JSON.stringify(list));
         }
 
-      renderList(list, inputValue);
+      printToList(inputValue);
+      document.getElementById("item").value = "";
     }
 
 
