@@ -28,17 +28,17 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 <body>
   <div class="container-fluid m-3">
     <div class="row">
-      <h3>ToDo</h3>
+      <h3 class="display-4">ToDo</h3>
     </div>
     <div class="row">
-      <div class="col">
-        <input type="text" id="item"><br>
-        <button onclick="addItem()">Add item</button>
+      <div class="col-2">
+        <input type="text" id="item" class="mb-1">
+        <button class="btn-primary btn-sm" onclick="addItem()">Add item</button>
       </div>
-      <div class="col">
-        <h6>Items</h6>
+      <div class="col-2">
+        <h5 class="text-muted">Items</h5>
         <ul id="list-items"></ul>
-        <button onclick="removeItem()">Remove item</button>
+        <button class="btn-danger btn-sm" onclick="removeItem()">Remove item</button>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         let deleteBox = document.createElement("input");
 
         deleteBox.type = "checkbox";
-        deleteBox.className = "delete-box form-check-input";
+        deleteBox.className = "mx-1 delete-box form-check-input";
         li.setAttribute("id", id);
         li.className = "item";
         li.appendChild(document.createTextNode(text));
