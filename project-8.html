@@ -49,9 +49,11 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     let list = JSON.parse(localStorage.getItem('list')) || [];
     let listOfItems = document.getElementById("list-items");
 
-    const renderList = (list) => {
+    const renderList = (list, text) => {
+      let listOfItems = document.getElementById("list-items");
+      listOfItems.innerHTML = "";
+      
       list.map(({text, id}) => {
-        let listOfItems = document.getElementById("list-items");
         let li = document.createElement("li");
         let deleteBox = document.createElement("input");
 
@@ -62,18 +64,7 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         li.appendChild(document.createTextNode(text));
         li.appendChild(deleteBox);
         listOfItems.appendChild(li);
-
-        function printToList(text) {
-          deleteBox.type = "checkbox";
-          deleteBox.className = "delete-box form-check-input";
-          // li.setAttribute("id", id);
-          li.className = "item";
-          li.appendChild(document.createTextNode(text));
-          li.appendChild(deleteBox);
-          listOfItems.appendChild(li);
-        }
       })
-      printToList(text);
     }
 
     renderList(list);
@@ -90,7 +81,7 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         localStorage.setItem("list", JSON.stringify(list));
         }
 
-      renderList(list).printToList(inputValue);
+      renderList(list, inputValue);
       document.getElementById("item").value = "";
     }
 
