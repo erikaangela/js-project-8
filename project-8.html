@@ -48,11 +48,12 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 
     let list = JSON.parse(localStorage.getItem('list')) || [];
     let listOfItems = document.getElementById("list-items");
+    
 
     const renderList = (list, text) => {
       let listOfItems = document.getElementById("list-items");
       listOfItems.innerHTML = "";
-      
+
       list.map(({text, id}) => {
         let li = document.createElement("li");
         let deleteBox = document.createElement("input");
@@ -68,6 +69,7 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
     }
 
     renderList(list);
+
 
     function addItem() {
       let inputValue = document.getElementById("item").value;
