@@ -28,17 +28,17 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
 <body>
   <div class="container-fluid m-3">
     <div class="row">
-      <h3>ToDo</h3>
+      <h3 class="display-4">ToDo</h3>
     </div>
     <div class="row">
-      <div class="col">
-        <input type="text" id="item"><br>
-        <button onclick="addItem()">Add item</button>
+      <div class="col-sm-2">
+        <input type="text" id="item" class="mb-1"><br>
+        <button class="btn-primary btn-sm mt-1" onclick="addItem()">Add item</button>
       </div>
-      <div class="col">
-        <h6>Items</h6>
+      <div class="col-sm-2">
+        <h6 class="text-muted mt-2">Items</h6>
         <ul id="list-items"></ul>
-        <button onclick="removeItem()">Remove item</button>
+        <button class="btn-danger btn-sm" onclick="removeItem()">Remove item</button>
       </div>
     </div>
   </div>
@@ -47,45 +47,39 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
   <script>
     // localStorage.clear();
 
-    const getDefaultItems = () => {
-
-    }
 
     let list = JSON.parse(localStorage.getItem('list')) || [];
     let listOfItems = document.getElementById("list-items");
 
 
-    const renderList = (list) => {
-      list.map(({text, id}) => {
-        let listOfItems = document.getElementById("list-items");
+    const renderList = (list, title) => {
+      let listOfItems = document.getElementById("list-items");
+      listOfItems.innerHTML = "";
+
+      if (!Array.isArray(list) || !list.length) {
+        axios.get('https://jsonplaceholder.typicode.com/todos?_limit=2')
+          .then(response => {
+            let list = response.data;
+            localStorage.setItem("list", JSON.stringify(list));
+          })
+          .catch(error => console.log(error))
+      }
+
+      list.map(({title, id}) => {
         let li = document.createElement("li");
         let deleteBox = document.createElement("input");
 
         deleteBox.type = "checkbox";
-        deleteBox.className = "delete-box form-check-input";
+        deleteBox.className = "mx-1 delete-box form-check-input";
         li.setAttribute("id", id);
         li.className = "item";
-        li.appendChild(document.createTextNode(text));
+        li.appendChild(document.createTextNode(title));
         li.appendChild(deleteBox);
         listOfItems.appendChild(li);
       })
     }
 
     renderList(list);
-
-
-    function printToList(text) {
-      let listOfItems = document.getElementById("list-items");
-      let li = document.createElement("li");
-      let deleteBox = document.createElement("input");
-
-      deleteBox.type = "checkbox";
-      deleteBox.className = "delete-box form-check-input";
-      li.className = "item";
-      li.appendChild(document.createTextNode(text));
-      li.appendChild(deleteBox);
-      listOfItems.appendChild(li);
-    }
 
 
     function addItem() {
@@ -96,11 +90,12 @@ Also, you can use JavaScript to add an "onclick" attribute to elements you're us
         alert("Enter a text item to add to the list.");
         return false;
       } else {
-        list.push({text: inputValue, id: inputId});
+        list.push({title: inputValue, id: inputId});
         localStorage.setItem("list", JSON.stringify(list));
         }
 
-      printToList(inputValue);
+      renderList(list, inputValue);
+      document.getElementById("item").value = "";
     }
 
 
