@@ -70,7 +70,8 @@ https://attacomsian.com/blog/axios-javascript -->
         let li = document.createElement("li");
         let deleteBox = document.createElement("input");
 
-        deleteBox.type = "checkbox";
+        deleteBox.type = "radio";
+        deleteBox.name = "todo";
         deleteBox.className = "mx-1 delete-box form-check-input";
         li.setAttribute("id", id);
         li.className = "item";
@@ -101,12 +102,12 @@ https://attacomsian.com/blog/axios-javascript -->
 
 
     function removeItem() {
-      let checkboxes = document.getElementsByClassName("delete-box");
+      let radios = document.getElementsByClassName("delete-box");
       let items = document.getElementsByClassName("item");
 
-      for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          checkboxes[i].parentNode.removeChild(checkboxes[i]);
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          radios[i].parentNode.removeChild(radios[i]);
           items[i].parentNode.removeChild(items[i]);
           list.splice([i], 1);
           localStorage.setItem("list", JSON.stringify(list));
