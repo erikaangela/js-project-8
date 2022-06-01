@@ -1,4 +1,4 @@
-# Build a ToDo App
+# ToDo App
 
 ### How the app works
 This project serves as an online ToDo App, allowing the user to add items into localStorage while also displaying them in the UI. The user can remove an item via radio, which also removes it from localStorage. The list items remaining in localStorage will continue to be displayed when the user reloads the page. The <i>main</i> branch works as described, while the <i>secondary</i> branch retains the same execution but gets data from an API if localStorage is initially empty.
