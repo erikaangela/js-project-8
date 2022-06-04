@@ -10,3 +10,8 @@ Be able to add/delete list item from UI and localStorage, save each item as an o
 
 ### Technologies used
 JavaScript, HTML, CSS, APIs
+
+## Quick Start
+
+* First, clone the app onto your local machine using ```` git clone ````
+* Second, click on the HTML file to open it in your browser.
